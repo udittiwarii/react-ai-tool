@@ -30,15 +30,19 @@ const Containapp = () => {
         }
     };
 
-
     const submitquestion = async () => {
         if (!question && !selectedhistoryli) return;
-
         if (question) {
-            const savehistory = JSON.parse(localStorage.getItem('his') || '[]');
-            const updatedHistory = [question, ...savehistory];
+            let savehistory = JSON.parse(localStorage.getItem('his') || '[]');
+            savehistory = savehistory.slice(0, 19);
+
+            const formattedQuestion = question.charAt(0).toUpperCase() + question.slice(1).trim();
+            let updatedHistory = [formattedQuestion, ...savehistory];
+            updatedHistory = [...new Set(updatedHistory)];
+
             localStorage.setItem('his', JSON.stringify(updatedHistory));
             sethistory(updatedHistory);
+            setselectedhistoryli('');
         }
 
         const payloaddata = question || selectedhistoryli;
@@ -56,8 +60,6 @@ const Containapp = () => {
             });
 
             const data = await response.json();
-
-
             const content = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
             if (!content) {
@@ -102,7 +104,7 @@ const Containapp = () => {
     }, [darkMode]);
 
     return (
-        <div className={darkMode == 'dark' ? 'dark' : 'light'}>
+        <div className={darkMode === 'dark' ? 'dark' : 'light'}>
             <div className="grid grid-cols-1 md:grid-cols-5 h-screen font-sans relative overflow-hidden">
                 <button
                     onClick={() => setSidebarOpen(!sidebarOpen)}

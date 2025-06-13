@@ -21,7 +21,7 @@ const Input = ({ question, setquestion, selectedhistoryli, submitquestion }) => 
           value={question}
           onChange={(e) => setquestion(e.target.value)}
           placeholder="Ask anything"
-          className="flex-1 bg-transparent outline-none placeholder-zinc-400 dark:placeholder-zinc-500 text-zinc-900 dark:text-white text-xl font-Happy-Monkey mr-4"
+          className="flex-1 bg-transparent outline-none overflow-x-auto overflow-y-auto placeholder-zinc-400 dark:placeholder-zinc-500 text-zinc-900 dark:text-white text-xl font-Happy-Monkey mr-4"
         />
         <button
           type="submit"
